@@ -1,5 +1,6 @@
 package com.supun.streamix;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,13 +72,32 @@ public class MyFileFragment extends Fragment implements IRecyclerView {
                 R.drawable.ic_android_black_24dp,
                 R.drawable.ic_android_black_24dp};
 
+        String[] associatedUrls = {
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4"
+        };
+
         for(int i = 0; i < titles.length; i++){
-            videoCardModels.add(new VideoCardModel(vectorImages[i], titles[i], descriptions[i]));
+            videoCardModels.add(new VideoCardModel(vectorImages[i], titles[i], descriptions[i], associatedUrls[i]));
         }
     }
 
     @Override
     public void onCardClick(int position) {
-        Log.i("CLICKED", videoCardModels.get(position).getTitle() + "Card clicked");
+
+        Intent intent = new Intent(getActivity(), PlayerActivity.class);
+
+
+        intent.putExtra("VIDEO_URL", videoCardModels.get(position).getVideoURL());
+        intent.putExtra("VIDEO_TITLE", videoCardModels.get(position).getTitle());
+
+        startActivity(intent);
+
     }
 }

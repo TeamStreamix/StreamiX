@@ -8,11 +8,13 @@ public class VideoCardModel {
     int thumbnail; // TODO: This should be converted into an image
     String title;
     String description; // we can add the recorded date here
+    String videoURL;
 
-    public VideoCardModel(int thumbnail, String title, String description) {
+    public VideoCardModel(int thumbnail, String title, String description, String videoURL) {
         this.thumbnail = thumbnail;
         this.title = title;
         this.description = description;
+        this.videoURL = videoURL;
     }
 
     public int getThumbnail() {
@@ -25,5 +27,9 @@ public class VideoCardModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getVideoURL() {
+        return videoURL;
     }
 }
