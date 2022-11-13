@@ -4,27 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.StreamiX.AppBarOverlay">
+        android:theme="@style/Theme.StreamiX.AppBarOverlay"
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        app:liftOnScroll="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+            android:id="@+id/main_toolbar_layout"
+            >
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/top_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:title="@string/app_name"
+
+                app:menu="@menu/main_menu"
+
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/image_main"
+                android:scaleType="centerCrop"
+
+
+                android:contentDescription="@string/devices" />
+
+        </RelativeLayout>
+        
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

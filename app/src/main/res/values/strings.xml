@@ -6,4 +6,7 @@
     <string name="thumbnail">Thumbnail</string>
     <string name="video_title">Video Title</string>
     <string name="video_description">This text discribe the video. Which discribe a little more abbout the video itself.</string>
+    <string name="app_bar_search">Search</string>
+    <string name="dark_mode">dark mode</string>
+    <string name="devices">Devices</string>
 </resources>
