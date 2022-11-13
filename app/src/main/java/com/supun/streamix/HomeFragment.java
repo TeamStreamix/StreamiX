@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.supun.streamix.ui.videoCard.VC_RecycleViewAdapter;
+import com.supun.streamix.ui.videoCard.VideoCardModel;
 
 import java.util.ArrayList;
 
@@ -18,7 +23,17 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_home);
+        setupVideoCardModels();
+        VC_RecycleViewAdapter adapter = new VC_RecycleViewAdapter(getContext(), videoCardModels);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+
+        return view;
+
     }
 
     private void setupVideoCardModels(){

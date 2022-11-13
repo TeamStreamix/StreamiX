@@ -1,6 +1,5 @@
-package com.supun.streamix;
+package com.supun.streamix.ui.videoCard;
 
-import android.media.Image;
 
 public class VideoCardModel {
     /**
