@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.supun.streamix.HomeFragment;
+import com.supun.streamix.MyFileFragment;
 import com.supun.streamix.R;
 
 /**
@@ -29,7 +31,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        Fragment current = null;
+        switch (position){
+            case 0:
+                current = new HomeFragment();
+                break;
+            case 1:
+                current = new MyFileFragment();
+                break;
+        }
+
+        return current;
     }
 
     @Nullable

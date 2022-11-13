@@ -3,4 +3,7 @@
     <string name="tab_text_1">Home</string>
     <string name="tab_text_2">My Files</string>
     <string name="Record">Record</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="video_title">Video Title</string>
+    <string name="video_description">This text discribe the video. Which discribe a little more abbout the video itself.</string>
 </resources>
