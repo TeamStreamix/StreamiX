@@ -7,6 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="card_light_red">#f76576</color>
-    <color name="card_dark_red">#f52c43</color>
+    <color name="card_orange_400">#e37922</color>
+    <color name="card_orange_900">#d6440f</color>
+    <color name="red_900">#fc0303</color>
+    <color name="red_100">#fcfc05</color>
+    <color name="red_1000">#d90000</color>
 </resources>

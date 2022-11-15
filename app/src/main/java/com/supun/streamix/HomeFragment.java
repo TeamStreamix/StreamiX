@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         final int[] state = new int[1];
 
         View viewToolbar = mainActivity.mainToolbarLayout;
-        int defaultHeight = viewToolbar.getMeasuredHeight();
+        int defaultHeight = 394;
         viewToolbar.getLayoutParams().height = defaultHeight;
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
