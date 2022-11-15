@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.supun.streamix.ui.main.SectionsPagerAdapter;
 import com.supun.streamix.databinding.ActivityMainBinding;
@@ -19,13 +20,20 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    RelativeLayout mainToolbarLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.i("started_main", "Application re rendered"); // Every thing reruns when the orientation changes
 
         super.onCreate(savedInstanceState);
+
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+
         setContentView(binding.getRoot());
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -33,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
+
+        mainToolbarLayout = findViewById(R.id.main_toolbar_layout);
 
 
         FloatingActionButton fab = binding.fab;
