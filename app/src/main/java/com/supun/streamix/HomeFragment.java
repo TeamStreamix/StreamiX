@@ -44,10 +44,12 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         recyclerView.setAdapter(adapter);
 
         final int[] state = new int[1];
-
         View viewToolbar = mainActivity.mainToolbarLayout;
         int defaultHeight = 394;
         viewToolbar.getLayoutParams().height = defaultHeight;
+        viewToolbar.requestLayout();
+
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
 
