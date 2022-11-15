@@ -1,11 +1,14 @@
 package com.supun.streamix;
 
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,10 +26,14 @@ import java.util.ArrayList;
 public class MyFileFragment extends Fragment implements IRecyclerView {
 
     private static final ArrayList<VideoCardModel> videoCardModels = new ArrayList<>();
+    private MainActivity mainActivity;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        mainActivity = (MainActivity) getActivity();
+
         View view = inflater.inflate(R.layout.fragment_my_files, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_my_files);
@@ -36,6 +43,41 @@ public class MyFileFragment extends Fragment implements IRecyclerView {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+
+        final int[] state = new int[1];
+
+        View viewToolbar = mainActivity.mainToolbarLayout;
+        int defaultHeight = viewToolbar.getMeasuredHeight();
+        viewToolbar.getLayoutParams().height = defaultHeight;
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                state[0] = newState;
+                Log.i("SCROLL STATE", "" + newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                Log.i("SCROLLED_DY", "" + dy + ":::::" + state[0] + ":::::::::" + viewToolbar.getLayoutParams().height);
+
+                if(dy > 0 && (state[0] == 1 || state[0] == 0)){
+
+                    slideView( viewToolbar, viewToolbar.getLayoutParams().height, 0);
+
+                }
+                else if(dy < -10){
+                    slideView( viewToolbar, viewToolbar.getLayoutParams().height, defaultHeight);
+
+                }
+
+            }
+        });
 
         return view;
     }
@@ -99,5 +141,30 @@ public class MyFileFragment extends Fragment implements IRecyclerView {
 
         startActivity(intent);
 
+    }
+
+    public static void slideView(View view,
+                                 int currentHeight,
+                                 int newHeight) {
+
+        ValueAnimator slideAnimator = ValueAnimator
+                .ofInt(currentHeight, newHeight)
+                .setDuration(500);
+
+        /* We use an update listener which listens to each tick
+         * and manually updates the height of the view  */
+
+
+        slideAnimator.addUpdateListener(animation1 -> {
+            view.getLayoutParams().height = (Integer) animation1.getAnimatedValue();
+            view.requestLayout();
+        });
+
+        /*  We use an animationSet to play the animation  */
+
+        AnimatorSet animationSet = new AnimatorSet();
+        animationSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animationSet.play(slideAnimator);
+        animationSet.start();
     }
 }
