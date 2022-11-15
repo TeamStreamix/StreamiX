@@ -65,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         mainToolbarLayout = findViewById(R.id.main_toolbar_layout);
 
 
-         // TODO: Where to put
-
-
-
         FloatingActionButton fab = binding.fab;
 
         fab.setOnClickListener(view -> {
@@ -81,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+
+
+        // This is the code to change the theme ------------------------------------------
 
         btnToggleDark = findViewById(R.id.app_bar_dark_mode);
 
@@ -107,45 +106,40 @@ public class MainActivity extends AppCompatActivity {
         }
 
         btnToggleDark.setOnClickListener(
-                new View.OnClickListener() {
+                view -> {
+                    // When user taps the enable/disable
+                    // dark mode button
+                    if (isDarkModeOn) {
 
-                    @Override
-                    public void onClick(View view)
-                    {
-                        // When user taps the enable/disable
-                        // dark mode button
-                        if (isDarkModeOn) {
-
-                            // if dark mode is on it
-                            // will turn it off
-                            AppCompatDelegate
-                                    .setDefaultNightMode(
-                                            AppCompatDelegate
-                                                    .MODE_NIGHT_NO);
-                            // it will set isDarkModeOn
-                            // boolean to false
-                            editor.putBoolean(
-                                    "isDarkModeOn", false);
-                            editor.apply();
+                        // if dark mode is on it
+                        // will turn it off
+                        AppCompatDelegate
+                                .setDefaultNightMode(
+                                        AppCompatDelegate
+                                                .MODE_NIGHT_NO);
+                        // it will set isDarkModeOn
+                        // boolean to false
+                        editor.putBoolean(
+                                "isDarkModeOn", false);
+                        editor.apply();
 
 
-                        }
-                        else {
+                    }
+                    else {
 
-                            // if dark mode is off
-                            // it will turn it on
-                            AppCompatDelegate
-                                    .setDefaultNightMode(
-                                            AppCompatDelegate
-                                                    .MODE_NIGHT_YES);
+                        // if dark mode is off
+                        // it will turn it on
+                        AppCompatDelegate
+                                .setDefaultNightMode(
+                                        AppCompatDelegate
+                                                .MODE_NIGHT_YES);
 
-                            // it will set isDarkModeOn
-                            // boolean to true
-                            editor.putBoolean(
-                                    "isDarkModeOn", true);
-                            editor.apply();
+                        // it will set isDarkModeOn
+                        // boolean to true
+                        editor.putBoolean(
+                                "isDarkModeOn", true);
+                        editor.apply();
 
-                        }
                     }
                 });
 

@@ -18,8 +18,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 public class PlayerActivity extends AppCompatActivity {
 
 
-
-
+    ExoPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class PlayerActivity extends AppCompatActivity {
         StyledPlayerView playerView = findViewById(R.id.video_player_view);
         playerView.setControllerShowTimeoutMs(2000);
 
-        ExoPlayer player = new ExoPlayer.Builder(this).build();
+        player = new ExoPlayer.Builder(this).build();
 
         playerView.setPlayer(player);
 
@@ -46,5 +45,11 @@ public class PlayerActivity extends AppCompatActivity {
         player.setPlayWhenReady(true);
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        player.stop();
     }
 }
