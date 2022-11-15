@@ -103,16 +103,16 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         };
 
         int[] vectorImages = {
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp
+                R.drawable.thumbnail_1,
+                R.drawable.thumbnail_2,
+                R.drawable.thumbnail_3,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available
         };
 
         String[] associatedUrls= {

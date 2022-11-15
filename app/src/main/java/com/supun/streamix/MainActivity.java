@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -33,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout mainToolbarLayout;
 
     private ActionMenuItemView btnToggleDark;
-
     private Menu menu;
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i("started_main", "Application re rendered"); // Every thing reruns when the orientation changes
 
         super.onCreate(savedInstanceState);
+
+
 
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

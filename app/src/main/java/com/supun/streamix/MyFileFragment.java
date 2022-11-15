@@ -105,14 +105,14 @@ public class MyFileFragment extends Fragment implements IRecyclerView {
 
         // These vectors should changed to images
         int[] vectorImages = {
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp,
-                R.drawable.ic_android_black_24dp};
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available,
+                R.drawable.no_thumbnail_available};
 
         String[] associatedUrls = {
                 "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
