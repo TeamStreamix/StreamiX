@@ -1,24 +1,20 @@
 package com.supun.streamix;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Slide;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 
 import com.supun.streamix.ui.videoCard.IRecyclerView;
 import com.supun.streamix.ui.videoCard.VC_RecycleViewAdapter;
@@ -49,22 +45,34 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
         final int[] state = new int[1];
 
+        View viewToolbar = mainActivity.mainToolbarLayout;
+        int defaultHeight = viewToolbar.getMeasuredHeight();
+        viewToolbar.getLayoutParams().height = defaultHeight;
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+
+
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 state[0] = newState;
+                Log.i("SCROLL STATE", "" + newState);
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(dy>0 && (state[0] == 0 || state[0] == 2)){
-//                    hideToolbar();
+                Log.i("SCROLLED_DY", "" + dy + ":::::" + state[0] + ":::::::::" + viewToolbar.getLayoutParams().height);
+
+                if(dy > 0 && (state[0] == 1 || state[0] == 0)){
+
+                    slideView( viewToolbar, viewToolbar.getLayoutParams().height, 0);
+
                 }
                 else if(dy < -10){
-//                    showToolbar();
+                    slideView( viewToolbar, viewToolbar.getLayoutParams().height, defaultHeight);
+
                 }
 
             }
@@ -136,38 +144,31 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         startActivity(intent);
     }
 
-    private void hideToolbar(){
-
-        View view = mainActivity.mainToolbarLayout;
 
 
-        ValueAnimator anim = ValueAnimator.ofInt(view.getMeasuredHeight(), -100);
-        anim.addUpdateListener(valueAnimator -> {
-            int val = (Integer) valueAnimator.getAnimatedValue();
-            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            layoutParams.height = val;
-            view.setLayoutParams(layoutParams);
+    public static void slideView(View view,
+                                 int currentHeight,
+                                 int newHeight) {
+
+        ValueAnimator slideAnimator = ValueAnimator
+                .ofInt(currentHeight, newHeight)
+                .setDuration(500);
+
+        /* We use an update listener which listens to each tick
+         * and manually updates the height of the view  */
+
+
+        slideAnimator.addUpdateListener(animation1 -> {
+            view.getLayoutParams().height = (Integer) animation1.getAnimatedValue();
+            view.requestLayout();
         });
-        anim.setDuration(1000);
-        anim.start();
 
+        /*  We use an animationSet to play the animation  */
 
-
+        AnimatorSet animationSet = new AnimatorSet();
+        animationSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animationSet.play(slideAnimator);
+        animationSet.start();
     }
 
-    private void showToolbar(){
-
-        View view = mainActivity.mainToolbarLayout;
-
-
-        ValueAnimator anim = ValueAnimator.ofInt(0, view.getMeasuredHeight());
-        anim.addUpdateListener(valueAnimator -> {
-            int val = (Integer) valueAnimator.getAnimatedValue();
-            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            layoutParams.height = val;
-            view.setLayoutParams(layoutParams);
-        });
-        anim.setDuration(1000);
-        anim.start();
-    }
 }
