@@ -14,4 +14,6 @@
     <color name="red_1000">#d90000</color>
     <color name="thumbnailDarkMode">#575656</color>
     <color name="thumbnailLightMode">#bdbdbb</color>
+    <color name="videoQualityBtnDark">#000000</color>
+    <color name="videoQualityBtnLight">#00ffffff</color>
 </resources>
