@@ -9,4 +9,5 @@
     <string name="app_bar_search">Search</string>
     <string name="dark_mode">Theme</string>
     <string name="devices">Devices</string>
+    <string name="VideoQuality">Video Quality</string>
 </resources>
