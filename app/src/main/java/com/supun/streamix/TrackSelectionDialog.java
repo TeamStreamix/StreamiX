@@ -192,6 +192,7 @@ public final class TrackSelectionDialog extends DialogFragment {
           trackGroups.add(trackGroup);
         }
       }
+      // To avoid multiple load while tab change in TrackSelectionDialog
       if (!trackGroups.isEmpty()) {
         TrackSelectionViewFragment tabFragment = new TrackSelectionViewFragment();
         tabFragment.init(
