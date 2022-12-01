@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.RenderersFactory;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
@@ -23,6 +24,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.util.MimeTypes;
 
 public class PlayerActivity extends AppCompatActivity {
 
@@ -57,7 +59,8 @@ public class PlayerActivity extends AppCompatActivity {
         videoTitle.setText(videoName);
 
 
-        DefaultTrackSelector trackSelector = new DefaultTrackSelector(this);
+
+        TrackSelector trackSelector = new DefaultTrackSelector();
 
         player = new ExoPlayer.Builder(this)
                 .setTrackSelector(trackSelector)
@@ -65,7 +68,10 @@ public class PlayerActivity extends AppCompatActivity {
 
         playerView.setPlayer(player);
 
-        MediaItem mediaItem = MediaItem.fromUri(videoURL);
+        // TODO: TAG -> playlist manifest type .MPD or .M3U8
+        MediaItem mediaItem = new MediaItem.Builder()
+                .setUri(videoURL)
+                .setMimeType(MimeTypes.APPLICATION_MPD).build();
 
         player.setMediaItem(mediaItem);
 
