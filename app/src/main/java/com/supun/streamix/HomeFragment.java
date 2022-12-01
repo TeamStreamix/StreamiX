@@ -118,11 +118,11 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         };
 
         String[] associatedUrls= {
-                "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
-                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
-                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
+                "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd",
+                "http://ftp.itec.aau.at/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_onDemand_2014_05_09.mpd",
+                "http://media.developer.dolby.com/DolbyVision_Atmos/profile8.1_DASH/p8.1.mpd",
+                "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
+                "https://dash.akamaized.net/dash264/TestCasesIOP33/adapatationSetSwitching/5/manifest.mpd",
                 "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
                 "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",

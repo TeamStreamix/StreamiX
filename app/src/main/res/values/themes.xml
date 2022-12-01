@@ -13,5 +13,7 @@
 
         <!-- My custom colors for the theme -->
         <item name="CardThumbnailBackgroundTint">@color/thumbnailLightMode</item>
+        <item name="VideoQualityBtnBackgroundTint">@color/videoQualityBtnLight</item>
+
     </style>
 </resources>
