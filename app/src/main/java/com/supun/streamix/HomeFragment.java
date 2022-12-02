@@ -118,9 +118,9 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         };
 
         String[] associatedUrls= {
-                "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd",
-                "http://ftp.itec.aau.at/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_onDemand_2014_05_09.mpd",
-                "http://media.developer.dolby.com/DolbyVision_Atmos/profile8.1_DASH/p8.1.mpd",
+                "http://192.168.1.15:8080/a/a_out.mpd",
+                "http://192.168.1.15:8080/c/c_out.mpd",
+                "http://192.168.1.15:8080/b/videofull1_out.mpd",
                 "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
                 "https://dash.akamaized.net/dash264/TestCasesIOP33/adapatationSetSwitching/5/manifest.mpd",
                 "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",

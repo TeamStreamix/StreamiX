@@ -16,4 +16,5 @@
     <color name="thumbnailLightMode">#bdbdbb</color>
     <color name="videoQualityBtnDark">#000000</color>
     <color name="videoQualityBtnLight">#00ffffff</color>
+    <color name="teal_600_customize">#AD3434</color>
 </resources>
