@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ScrollView
+        android:id="@+id/videoUploadForm"
+        android:layout_width="379dp"
+        android:layout_height="612dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/VideoUploadForm"
+        app:layout_constraintBottom_toTopOf="@+id/btnUploadVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.google.android.exoplayer2.ui.StyledPlayerView
+                android:id="@+id/video_player_view_upload_form"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+
+                app:animation_enabled="true"
+                app:hide_on_touch="true"
+
+                app:shutter_background_color="@color/black"/>
+
+
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/formVideoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="My Video"
+                android:text="@string/video_title"
+
+                android:layout_marginTop="10dp"
+
+                />
+
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/formVideoDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Custom recorded video"
+                android:text="@string/video_description"
+
+
+                android:layout_marginTop="10dp"
+
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnUploadVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/upload"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancelVideo"
+
+
+        android:padding="15dp"
+
+        android:letterSpacing="0.5"
+
+        />
+
+    <Button
+        android:id="@+id/btnCancelVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnUploadVideo"
+
+        android:padding="15dp"
+
+        android:letterSpacing="0.5"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
