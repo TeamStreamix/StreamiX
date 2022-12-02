@@ -3,6 +3,7 @@ package com.supun.streamix;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionMenuItemView btnToggleDark;
     private Menu menu;
+
     private int recordCode = 100;
     private Uri videoUri;
 
@@ -54,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.i("started_main", "Application re rendered"); // Every thing reruns when the orientation changes
+        Log.i("BASE_URL", BuildConfig.SERVER_URL);
 
         super.onCreate(savedInstanceState);
+
 
 
 
@@ -166,13 +170,15 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == recordCode){
             if(resultCode == RESULT_OK){
+                assert data != null;
                 videoUri = data.getData();
 
-                Intent intent = new Intent(this, PlayerActivity.class);
+                Log.i("MY_VIDEO_URI", videoUri.toString());
+
+                Intent intent = new Intent(this, videoUploadForm.class);
 
 
                 intent.putExtra("VIDEO_URL", videoUri.toString());
-                intent.putExtra("IS_MP4", 1);
 
                 startActivity(intent);
 

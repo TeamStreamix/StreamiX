@@ -5,23 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:liftOnScroll="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/top_app_bar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            app:title="@string/app_name"
+
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <ScrollView
         android:id="@+id/videoUploadForm"
-        android:layout_width="379dp"
-        android:layout_height="612dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
         android:contentDescription="@string/VideoUploadForm"
-        app:layout_constraintBottom_toTopOf="@+id/btnUploadVideo"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <com.google.android.exoplayer2.ui.StyledPlayerView
                 android:id="@+id/video_player_view_upload_form"
@@ -31,18 +54,22 @@
                 app:animation_enabled="true"
                 app:hide_on_touch="true"
 
-                app:shutter_background_color="@color/black"/>
-
+                app:shutter_background_color="@color/black" />
 
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/formVideoTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="My Video"
-                android:text="@string/video_title"
 
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+
+
+                android:autofillHints="My Video"
+
+                android:text="@string/video_title"
 
                 />
 
@@ -51,11 +78,15 @@
                 android:id="@+id/formVideoDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Custom recorded video"
-                android:text="@string/video_description"
-
 
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+
+                android:autofillHints="Custom recorded video"
+
+
+                android:text="@string/video_description"
 
                 />
         </LinearLayout>
@@ -68,15 +99,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:letterSpacing="0.5"
+        android:padding="15dp"
         android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
+
+
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toEndOf="@+id/btnCancelVideo"
-
-
-        android:padding="15dp"
-
-        android:letterSpacing="0.5"
 
         />
 
@@ -86,14 +117,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:letterSpacing="0.5"
+        android:padding="15dp"
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintEnd_toStartOf="@id/btnUploadVideo"
 
-        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        android:letterSpacing="0.5"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
