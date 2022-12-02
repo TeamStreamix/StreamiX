@@ -58,6 +58,9 @@ public class PlayerActivity extends AppCompatActivity
         String videoURL = getIntent().getStringExtra("VIDEO_URL");
         String videoName = getIntent().getStringExtra("VIDEO_TITLE");
 
+        // This is the extra to check whether this is a recorded video
+        int isRecorded = getIntent().getIntExtra("IS_MP4", 0);
+
         StyledPlayerView playerView = findViewById(R.id.video_player_view);
         playerView.setControllerShowTimeoutMs(3000);
 
@@ -77,10 +80,25 @@ public class PlayerActivity extends AppCompatActivity
 
         playerView.setPlayer(player);
 
-        // TODO: TAG -> playlist manifest type .MPD or .M3U8
-        MediaItem mediaItem = new MediaItem.Builder()
-                .setUri(videoURL)
-                .setMimeType(MimeTypes.APPLICATION_MPD).build();
+
+        MediaItem mediaItem;
+
+        if(isRecorded == 0){
+            // TODO: TAG -> playlist manifest type .MPD or .M3U8
+            mediaItem = new MediaItem.Builder()
+                    .setUri(videoURL)
+                    .setMimeType(MimeTypes.APPLICATION_MPD).build();
+        } else{
+
+            // Code to set video title
+
+            // TODO: TAG -> playlist manifest type .MPD or .M3U8
+            mediaItem = new MediaItem.Builder()
+                    .setUri(videoURL)
+                    .build();
+
+
+        }
 
         player.setMediaItem(mediaItem);
 
