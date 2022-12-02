@@ -10,7 +10,16 @@
     <string name="dark_mode">Theme</string>
     <string name="devices">Devices</string>
     <string name="VideoQuality">Video Quality</string>
+
     <string name="cancel">Cancel</string>
     <string name="upload">Upload</string>
     <string name="VideoUploadForm">Upload Form</string>
+
+
+    <string name="track_selection_title">Select tracks</string>
+    <string name="exo_track_selection_title_video">Video</string>
+    <string name="exo_track_selection_title_audio">Audio</string>
+    <string name="exo_track_selection_title_text">Text</string>
+    <string name="StreamType">Stream type</string>
+
 </resources>

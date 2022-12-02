@@ -2,4 +2,5 @@
 <resources>
     <attr name="CardThumbnailBackgroundTint" format="color"/>
     <attr name="VideoQualityBtnBackgroundTint" format="color"/>
+    <attr name="fabVideoBtn" format="color"/>
 </resources>

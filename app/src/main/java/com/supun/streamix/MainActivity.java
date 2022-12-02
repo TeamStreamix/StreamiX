@@ -3,6 +3,7 @@ package com.supun.streamix;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.card.MaterialCardView;
@@ -11,6 +12,7 @@ import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.content.ContextCompat;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionMenuItemView btnToggleDark;
     private Menu menu;
+    private int recordCode = 100;
+    private Uri videoUri;
 
 
 
@@ -77,11 +81,17 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(MediaStore.ACTION_VIDEO_CAPTURE);
 //                intent.putExtra() : Pass extras to the new Activity
-                startActivity(intent);
+
+
+                startActivityForResult(intent, recordCode);
+
+
             } catch (Exception e){
                 e.printStackTrace();
             }
         });
+
+
 
 
         // This is the code to change the theme ------------------------------------------
@@ -148,5 +158,30 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == recordCode){
+            if(resultCode == RESULT_OK){
+                videoUri = data.getData();
+
+                Intent intent = new Intent(this, PlayerActivity.class);
+
+
+                intent.putExtra("VIDEO_URL", videoUri.toString());
+                intent.putExtra("IS_MP4", 1);
+
+                startActivity(intent);
+
+                Log.i("RESULT_OK", "onActivityResult: Video captured");
+            } else if(resultCode == RESULT_CANCELED){
+                Log.i("CAMERA_CLOSE", "onActivityResult: Camera Closed");
+            } else{
+                Log.i("CAMERA_FAILED", "onActivityResult: Camera Failed");
+            }
+        }
     }
 }

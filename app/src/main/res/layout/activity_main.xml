@@ -70,5 +70,10 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/Record"
-        app:srcCompat="@android:drawable/presence_video_busy" />
+        app:srcCompat="@drawable/ic_baseline_videocam_24"
+        android:backgroundTint="?fabVideoBtn"
+        app:borderWidth="0dp"
+        app:backgroundTint="@color/black"
+        app:elevation="5dp"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
