@@ -206,18 +206,18 @@ public class videoUploadForm extends AppCompatActivity {
 
                 dos.flush();
 
-                Log.e(Tag,"File Sent, Response: "+String.valueOf(conn.getResponseCode()));
+//                Log.e(Tag,"File Sent, Response: "+String.valueOf(conn.getResponseCode()));
 
-                InputStream is = conn.getInputStream();
-
-                // retrieve the response from server
-                int ch;
-
-                StringBuffer b =new StringBuffer();
-                while( ( ch = is.read() ) != -1 ){ b.append( (char)ch ); }
-                String s=b.toString();
-                Log.i("RESPONSE",s);
-                dos.close();
+//                InputStream is = conn.getInputStream();
+//
+//                // retrieve the response from server
+//                int ch;
+//
+//                StringBuffer b =new StringBuffer();
+//                while( ( ch = is.read() ) != -1 ){ b.append( (char)ch ); }
+//                String s=b.toString();
+//                Log.i("RESPONSE",s);
+//                dos.close();
 
 
             } catch(MalformedURLException e){
