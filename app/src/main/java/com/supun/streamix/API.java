@@ -3,6 +3,7 @@ package com.supun.streamix;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,6 +21,9 @@ public interface API {
 //    @GET("fileUpload/files/{filename}")                                                                 // GET request to get an image by its name
 //    @Streaming
 //    Call<ResponseBody> getImageByName(@Path("filename") String name);
+
+    @GET("getVideos")
+    Call<List<Video>> getVideos();
 
     @Multipart                                                                                          // POST request to upload an image from storage
     @POST("upload")
