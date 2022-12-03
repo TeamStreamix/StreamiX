@@ -18,11 +18,11 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.15:8080/\"")
+            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.10:8080/\"")
             buildConfigField("String", "SERVER_URL", "\"http://192.168.1.10:4000/\"")
         }
         release {
-            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.15:8080/\"")
+            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.10:8080/\"")
             buildConfigField("String", "SERVER_URL", "\"http://192.168.1.10:4000/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -60,4 +60,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
 }

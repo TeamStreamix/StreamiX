@@ -21,6 +21,11 @@ import com.supun.streamix.ui.videoCard.VC_RecycleViewAdapter;
 import com.supun.streamix.ui.videoCard.VideoCardModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements IRecyclerView {
 
@@ -38,6 +43,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_home);
         setupVideoCardModels();
+        Log.i("zz", String.valueOf(videoCardModels.size()));
         VC_RecycleViewAdapter adapter = new VC_RecycleViewAdapter(getContext(), videoCardModels, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -87,22 +93,56 @@ public class HomeFragment extends Fragment implements IRecyclerView {
     private void setupVideoCardModels(){
 
         // This is to prevent duplicating items when orientation change
-        videoCardModels.clear();
+//        videoCardModels.clear();
+        ArrayList<String> ids = new ArrayList<>();
 
+        String Tag = "vhagar";
+        Log.i(Tag, "Starting");
+        Call<List<Video>> call = RetrofitClient.getInstance().getAPI().getVideos();
+        Log.i(Tag, "call ");
+        call.enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+                Log.i(Tag, "Got data");
+                List<Video> videoList = response.body();
+                Log.i("size", String.valueOf(videoList.size()));
+                Log.i(Tag, videoList.get(0).getTitle());
+                Log.i(Tag, videoList.get(0).getDescription());
+                for (int i = 0; i < videoList.size(); i++) {
+                    Log.i(Tag, "xxxx");
+                    if (!ids.contains(videoList.get(i).getID())){
+                        ids.add(videoList.get(i).getID());
+                        videoCardModels.add(new VideoCardModel(R.drawable.thumbnail_1, videoList.get(i).getTitle(),
+                                videoList.get(i).getDescription(),
+                                BuildConfig.FILE_SYSTEM_URL+videoList.get(i).getID()+"/"+videoList.get(i).getID()+"_out.mpd"));
+                    }
+
+                }
+                Log.i("qqq", String.valueOf(videoCardModels.size()));
+            }
+
+            @Override
+            public void onFailure(Call<List<Video>> call, Throwable t) {
+
+                Log.e(Tag, "Mission Faileddddd");
+//                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            }
+
+        });
         // These are the dummy data used to display
-        String[] titles = {"Video 1", "Video 2", "Video 3", "Video 4", "Video 5", "Video 1", "Video 2", "Video 3", "Video 4", "Video 5"};
-        String[] descriptions = {
-                "This is a description for video 1",
-                "This is a description for video 2",
-                "This is a description for video 3",
-                "This is a description for video 4",
-                "This is a description for video 5",
-                "This is a description for video 1",
-                "This is a description for video 2",
-                "This is a description for video 3",
-                "This is a description for video 4",
-                "This is a description for video 5"
-        };
+//        String[] titles = {"Video 1", "Video 2", "Video 3", "Video 4", "Video 5", "Video 1", "Video 2", "Video 3", "Video 4", "Video 5"};
+//        String[] descriptions = {
+//                "This is a description for video 1",
+//                "This is a description for video 2",
+//                "This is a description for video 3",
+//                "This is a description for video 4",
+//                "This is a description for video 5",
+//                "This is a description for video 1",
+//                "This is a description for video 2",
+//                "This is a description for video 3",
+//                "This is a description for video 4",
+//                "This is a description for video 5"
+//        };
 
         int[] vectorImages = {
                 R.drawable.thumbnail_1,
@@ -117,22 +157,23 @@ public class HomeFragment extends Fragment implements IRecyclerView {
                 R.drawable.no_thumbnail_available
         };
 
-        String[] associatedUrls= {
-                "http://192.168.1.15:8080/a/a_out.mpd",
-                "http://192.168.1.15:8080/c/c_out.mpd",
-                "http://192.168.1.15:8080/b/videofull1_out.mpd",
-                "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
-                "https://dash.akamaized.net/dash264/TestCasesIOP33/adapatationSetSwitching/5/manifest.mpd",
-                "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
-                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
-                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4"
-        };
+//        String[] associatedUrls= {
+//                "http://192.168.1.15:8080/a/a_out.mpd",
+//                "http://192.168.1.15:8080/c/c_out.mpd",
+//                "http://192.168.1.15:8080/b/videofull1_out.mpd",
+//                "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
+//                "https://dash.akamaized.net/dash264/TestCasesIOP33/adapatationSetSwitching/5/manifest.mpd",
+//                "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+//                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+//                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
+//                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
+//                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4"
+//        };
 
-        for(int i = 0; i < titles.length; i++){
-            videoCardModels.add(new VideoCardModel(vectorImages[i], titles[i], descriptions[i], associatedUrls[i]));
-        }
+//        for(int i = 0; i < titles.size(); i++){
+//            videoCardModels.add(new VideoCardModel(vectorImages[0], titles.get(i), descriptions.get(i), associatedUrls.get(i)));
+//        }
+
     }
 
     @Override

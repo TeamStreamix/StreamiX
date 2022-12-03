@@ -7,12 +7,28 @@ public class Video {
     private String _id;
 
     @SerializedName("title")
-    private String title;
+    private String superTitle;
 
     @SerializedName("description")
-    private String description;
+    private String superDescription;
 
-    @SerializedName("__v")
-    private String __v;
+
+    public Video(String _id,String title, String description) {
+        this._id = _id;
+        this.superTitle = title;
+        this.superDescription = description;
+    }
+
+    public String getTitle() {
+        return superTitle;
+    }
+
+    public String getID() {
+        return _id;
+    }
+
+    public String getDescription() {
+        return superDescription;
+    }
 
 }

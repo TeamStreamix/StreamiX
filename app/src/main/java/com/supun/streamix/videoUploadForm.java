@@ -38,6 +38,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import okhttp3.MediaType;
@@ -206,6 +208,10 @@ public class videoUploadForm extends AppCompatActivity {
             String boundary = "*****";
             String Tag="fSnd";
 
+            Map<String, RequestBody> map = new HashMap<>();
+            map.put("title", RequestBody.create(MediaType.parse("text/plain"), formVideoTitle.getText().toString()));
+            map.put("description", RequestBody.create(MediaType.parse("text/plain"), formVideoDescription.getText().toString()));
+
             try{
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), video_source);
                 Log.i(Tag, "Request body created");
@@ -215,7 +221,7 @@ public class videoUploadForm extends AppCompatActivity {
                 Log.i(Tag, "Multipart created");
                 API api = RetrofitClient.getInstance().getAPI();
                 Log.i(Tag, "API created");
-                Call<ResponseBody> upload = api.uploadVideo(partImage);
+                Call<ResponseBody> upload = api.uploadVideo(partImage, map);
                 Log.i(Tag, "upload response body created");
                 upload.enqueue(new Callback<ResponseBody>() {
                     @Override
