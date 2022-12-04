@@ -44,6 +44,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -289,7 +290,9 @@ public class videoUploadForm extends AppCompatActivity {
 
             Map<String, RequestBody> map = new HashMap<>();
             map.put("title", RequestBody.create(MediaType.parse("text/plain"), formVideoTitle.getText().toString()));
-            map.put("description", RequestBody.create(MediaType.parse("text/plain"), formVideoDescription.getText().toString()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                map.put("description", RequestBody.create(MediaType.parse("text/plain"), LocalDate.now().toString() + "\n" +  formVideoDescription.getText().toString()));
+            }
 
             try{
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), video_source);

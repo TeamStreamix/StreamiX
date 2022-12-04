@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements IRecyclerView, SwipeRefres
 
         mainActivity = (MainActivity) getActivity();
 
-        // Avoid network op on main thread for loading thumbnails
+        // Avoid network op on main thread for loading thumbnails - Reduce UX
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
