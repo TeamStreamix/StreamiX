@@ -229,8 +229,7 @@ public class videoUploadForm extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         if(response.isSuccessful()) {
-                            Log.i(Tag, "Mission successful");
-
+                            Toast.makeText(getApplicationContext(), "Upload Complete", Toast.LENGTH_LONG).show();
                         }else{
                             Log.e(Tag, "Response unsuccessful at line 167");
                             Log.e(Tag, response.message());
