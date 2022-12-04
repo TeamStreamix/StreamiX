@@ -7,6 +7,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -35,8 +36,11 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -60,6 +64,7 @@ public class videoUploadForm extends AppCompatActivity {
     private MaterialAutoCompleteTextView formVideoTitle;
     private MaterialAutoCompleteTextView formVideoDescription;
     private String videoUri;
+    private String mediaFolder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +75,10 @@ public class videoUploadForm extends AppCompatActivity {
         // Form id init
         btnUpload = findViewById(R.id.btnUploadVideo);
         btnCancel = findViewById(R.id.btnCancelVideo);
+
+
+        mediaFolder = createFolder(this);
+        Log.i("FOLDER", mediaFolder);
 
         btnCancel.setOnClickListener(
                 view -> {
@@ -111,6 +120,8 @@ public class videoUploadForm extends AppCompatActivity {
                    UploadVideoFile uploadVideoFile = new UploadVideoFile();
                    uploadVideoFile.execute();
 
+                    storeMedia(Uri.parse(videoUri));
+
                     Intent intent = new Intent(this, MainActivity.class);
                     player.stop();
                     startActivity(intent);
@@ -119,6 +130,67 @@ public class videoUploadForm extends AppCompatActivity {
         );
 
 
+    }
+
+    protected static String createFolder(Context context){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            File[] directories = new File[0];
+            directories = context.getExternalMediaDirs();
+
+
+            for(int i = 0; i < directories.length; i++){
+                if(directories[i].getName().contains(context.getPackageName())){
+                    return directories[i].getAbsolutePath();
+                }
+            }
+
+        }
+
+        return null;
+    }
+
+    private void storeMedia(Uri videoUri){
+        String saveFolder = mediaFolder + "/Video.mp4";
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            saveFolder = mediaFolder + "/" + formVideoTitle.getText().toString() + ".mp4";
+        }
+
+        Log.i("SAVE_LOCATION", saveFolder);
+
+        try {
+            InputStream in = getContentResolver().openInputStream(videoUri);
+            videoUploadForm.createFileFromInputStream(in, saveFolder);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+    private static File createFileFromInputStream(InputStream inputStream, String fileName) {
+
+        try{
+            File f = new File(fileName);
+            f.setWritable(true, false);
+            OutputStream outputStream = new FileOutputStream(f);
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while((length=inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer,0,length);
+            }
+
+            outputStream.close();
+            inputStream.close();
+
+            return f;
+        }catch (IOException e) {
+            System.out.println("error in creating a file");
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public String getRealPathFromURI(Uri contentUri) {

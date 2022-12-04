@@ -1,10 +1,12 @@
 package com.supun.streamix;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.card.MaterialCardView;
@@ -31,6 +33,14 @@ import android.widget.RelativeLayout;
 import com.supun.streamix.ui.main.SectionsPagerAdapter;
 import com.supun.streamix.databinding.ActivityMainBinding;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.time.LocalDateTime;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -42,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int recordCode = 100;
     private Uri videoUri;
+
 
 
 
@@ -59,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i("BASE_URL", BuildConfig.SERVER_URL);
 
         super.onCreate(savedInstanceState);
+
+
 
 
 
@@ -175,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(this, videoUploadForm.class);
 
-
                 intent.putExtra("VIDEO_URL", videoUri.toString());
 
                 startActivity(intent);
@@ -190,4 +202,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }
