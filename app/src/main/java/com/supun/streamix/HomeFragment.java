@@ -2,8 +2,16 @@ package com.supun.streamix;
 
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +20,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +31,8 @@ import com.supun.streamix.ui.videoCard.IRecyclerView;
 import com.supun.streamix.ui.videoCard.VC_RecycleViewAdapter;
 import com.supun.streamix.ui.videoCard.VideoCardModel;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +58,10 @@ public class HomeFragment extends Fragment implements IRecyclerView, SwipeRefres
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mainActivity = (MainActivity) getActivity();
+
+        // Avoid network op on main thread for loading thumbnails
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -140,8 +156,24 @@ public class HomeFragment extends Fragment implements IRecyclerView, SwipeRefres
                     Log.i(Tag, "xxxx");
                     if (!ids.contains(videoList.get(i).getID())){
                         ids.add(videoList.get(i).getID());
+
+                        Bitmap thumbnail;
+
+                        try{
+                            Log.i("THUMBNAIL_LINK", BuildConfig.FILE_SYSTEM_URL+ "thumbnails/" + videoList.get(i).getID() + ".jpg");
+                            URL in = new URL(BuildConfig.FILE_SYSTEM_URL+ "thumbnails/" + videoList.get(i).getID() + ".jpg");
+
+
+                            thumbnail = BitmapFactory.decodeStream(in.openConnection().getInputStream());
+                        } catch (Exception e){
+                            Log.i("THUMBNAIL", e.toString());
+                            thumbnail = getBitmapFromVectorDrawable(getContext(), R.drawable.no_thumbnail_available);
+                        }
+
+
+
                         videoCardModels.add(new VideoCardModel(
-                                R.drawable.no_thumbnail_available,
+                                thumbnail,
                                 videoList.get(i).getTitle(),
                                 videoList.get(i).getDescription(),
                                 BuildConfig.FILE_SYSTEM_URL+videoList.get(i).getID()+"/"+videoList.get(i).getID()+"_out.mpd"));
@@ -164,6 +196,21 @@ public class HomeFragment extends Fragment implements IRecyclerView, SwipeRefres
 
         });
 
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     @Override

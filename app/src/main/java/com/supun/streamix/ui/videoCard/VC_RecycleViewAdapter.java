@@ -48,7 +48,7 @@ public class VC_RecycleViewAdapter extends RecyclerView.Adapter<VC_RecycleViewAd
 
         holder.title.setText(videoCardModels.get(position).getTitle());
         holder.description.setText(videoCardModels.get(position).getDescription());
-        holder.thumbnail.setImageResource(videoCardModels.get(position).getThumbnail());
+        holder.thumbnail.setImageBitmap(videoCardModels.get(position).getThumbnail());
 
 
     }

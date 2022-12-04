@@ -5,7 +5,9 @@ import static com.supun.streamix.videoUploadForm.createFolder;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,7 +104,7 @@ public class MyFileFragment extends Fragment implements IRecyclerView {
         for (File file : files) {
 
             videoCardModels.add(new VideoCardModel(
-                    R.drawable.no_thumbnail_available,
+                    ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Video.Thumbnails.FULL_SCREEN_KIND),
                     file.getName(),
                     "This is a local offline video",
                     file.getAbsolutePath()
