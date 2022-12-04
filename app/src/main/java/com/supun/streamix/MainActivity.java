@@ -84,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
             try{
                 Intent intent = new Intent();
                 intent.setAction(MediaStore.ACTION_VIDEO_CAPTURE);
-//                intent.putExtra() : Pass extras to the new Activity
-
 
                 startActivityForResult(intent, recordCode);
 
@@ -181,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("VIDEO_URL", videoUri.toString());
 
                 startActivity(intent);
+
+                finish();
 
                 Log.i("RESULT_OK", "onActivityResult: Video captured");
             } else if(resultCode == RESULT_CANCELED){

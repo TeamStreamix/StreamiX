@@ -73,9 +73,11 @@ public class videoUploadForm extends AppCompatActivity {
 
         btnCancel.setOnClickListener(
                 view -> {
-                    createNotif();
+
                     Intent intent = new Intent(this, MainActivity.class);
+                    player.stop();
                     startActivity(intent);
+                    finish();
                 }
         );
 
@@ -110,8 +112,9 @@ public class videoUploadForm extends AppCompatActivity {
                    uploadVideoFile.execute();
 
                     Intent intent = new Intent(this, MainActivity.class);
-
+                    player.stop();
                     startActivity(intent);
+                    finish();
                 }
         );
 
@@ -194,6 +197,8 @@ public class videoUploadForm extends AppCompatActivity {
         m.notify(new Random().nextInt(),builder.build());
 
     }
+
+
     private class UploadVideoFile extends AsyncTask<Void, Void, Void>{
 
         @Override
@@ -229,7 +234,10 @@ public class videoUploadForm extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         if(response.isSuccessful()) {
+                            Log.i(Tag, "Mission successful");
+
                             Toast.makeText(getApplicationContext(), "Upload Complete", Toast.LENGTH_LONG).show();
+
                         }else{
                             Log.e(Tag, "Response unsuccessful at line 167");
                             Log.e(Tag, response.message());

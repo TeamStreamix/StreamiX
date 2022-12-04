@@ -29,9 +29,9 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements IRecyclerView {
 
-    private static final ArrayList<VideoCardModel> videoCardModels = new ArrayList<>();
+    private final ArrayList<VideoCardModel> videoCardModels = new ArrayList<>();
     private MainActivity mainActivity;
-    VC_RecycleViewAdapter adapter;
+    private VC_RecycleViewAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
