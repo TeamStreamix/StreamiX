@@ -2,6 +2,7 @@ package com.supun.streamix;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -227,7 +229,8 @@ public class videoUploadForm extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         if(response.isSuccessful()) {
-                            Log.i(Tag, "Mission successfule");
+                            Log.i(Tag, "Mission successful");
+
                         }else{
                             Log.e(Tag, "Response unsuccessful at line 167");
                             Log.e(Tag, response.message());
@@ -238,6 +241,7 @@ public class videoUploadForm extends AppCompatActivity {
                     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                         Log.e(Tag, "Mission failed");
                         Log.e(Tag, t.getMessage());
+                        Toast.makeText(getApplicationContext(), "Upload Complete", Toast.LENGTH_SHORT).show();
                     }
                 });
 

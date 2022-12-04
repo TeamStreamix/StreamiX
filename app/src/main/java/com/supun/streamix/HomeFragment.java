@@ -32,6 +32,11 @@ public class HomeFragment extends Fragment implements IRecyclerView {
     private static final ArrayList<VideoCardModel> videoCardModels = new ArrayList<>();
     private MainActivity mainActivity;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +47,10 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_home);
+
         setupVideoCardModels();
+
+
         Log.i("zz", String.valueOf(videoCardModels.size()));
         VC_RecycleViewAdapter adapter = new VC_RecycleViewAdapter(getContext(), videoCardModels, this);
 
@@ -93,7 +101,9 @@ public class HomeFragment extends Fragment implements IRecyclerView {
     private void setupVideoCardModels(){
 
         // This is to prevent duplicating items when orientation change
-//        videoCardModels.clear();
+
+
+        // videoCardModels.clear();
         ArrayList<String> ids = new ArrayList<>();
 
         String Tag = "vhagar";
@@ -112,7 +122,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
                     Log.i(Tag, "xxxx");
                     if (!ids.contains(videoList.get(i).getID())){
                         ids.add(videoList.get(i).getID());
-                        videoCardModels.add(new VideoCardModel(R.drawable.thumbnail_1, videoList.get(i).getTitle(),
+                        videoCardModels.add(new VideoCardModel(R.drawable.no_thumbnail_available, videoList.get(i).getTitle(),
                                 videoList.get(i).getDescription(),
                                 BuildConfig.FILE_SYSTEM_URL+videoList.get(i).getID()+"/"+videoList.get(i).getID()+"_out.mpd"));
                     }
