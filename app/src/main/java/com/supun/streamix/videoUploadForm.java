@@ -240,7 +240,7 @@ public class videoUploadForm extends AppCompatActivity {
                     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                         Log.e(Tag, "Mission failed");
                         Log.e(Tag, t.getMessage());
-                        Toast.makeText(getApplicationContext(), "Upload Complete", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Upload Failed", Toast.LENGTH_LONG).show();
                     }
                 });
 
