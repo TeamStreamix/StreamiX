@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
     private static final ArrayList<VideoCardModel> videoCardModels = new ArrayList<>();
     private MainActivity mainActivity;
+    VC_RecycleViewAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
 
         Log.i("zz", String.valueOf(videoCardModels.size()));
-        VC_RecycleViewAdapter adapter = new VC_RecycleViewAdapter(getContext(), videoCardModels, this);
+        adapter = new VC_RecycleViewAdapter(getContext(), videoCardModels, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -103,7 +104,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         // This is to prevent duplicating items when orientation change
 
 
-        // videoCardModels.clear();
+         videoCardModels.clear();
         ArrayList<String> ids = new ArrayList<>();
 
         String Tag = "vhagar";
@@ -125,6 +126,8 @@ public class HomeFragment extends Fragment implements IRecyclerView {
                         videoCardModels.add(new VideoCardModel(R.drawable.no_thumbnail_available, videoList.get(i).getTitle(),
                                 videoList.get(i).getDescription(),
                                 BuildConfig.FILE_SYSTEM_URL+videoList.get(i).getID()+"/"+videoList.get(i).getID()+"_out.mpd"));
+
+                        adapter.notifyItemInserted(videoCardModels.size() - 1);
                     }
 
                 }
@@ -139,50 +142,6 @@ public class HomeFragment extends Fragment implements IRecyclerView {
             }
 
         });
-        // These are the dummy data used to display
-//        String[] titles = {"Video 1", "Video 2", "Video 3", "Video 4", "Video 5", "Video 1", "Video 2", "Video 3", "Video 4", "Video 5"};
-//        String[] descriptions = {
-//                "This is a description for video 1",
-//                "This is a description for video 2",
-//                "This is a description for video 3",
-//                "This is a description for video 4",
-//                "This is a description for video 5",
-//                "This is a description for video 1",
-//                "This is a description for video 2",
-//                "This is a description for video 3",
-//                "This is a description for video 4",
-//                "This is a description for video 5"
-//        };
-
-        int[] vectorImages = {
-                R.drawable.thumbnail_1,
-                R.drawable.thumbnail_2,
-                R.drawable.thumbnail_3,
-                R.drawable.no_thumbnail_available,
-                R.drawable.no_thumbnail_available,
-                R.drawable.no_thumbnail_available,
-                R.drawable.no_thumbnail_available,
-                R.drawable.no_thumbnail_available,
-                R.drawable.no_thumbnail_available,
-                R.drawable.no_thumbnail_available
-        };
-
-//        String[] associatedUrls= {
-//                "http://192.168.1.15:8080/a/a_out.mpd",
-//                "http://192.168.1.15:8080/c/c_out.mpd",
-//                "http://192.168.1.15:8080/b/videofull1_out.mpd",
-//                "https://content.jwplatform.com/manifests/yp34SRmf.m3u8",
-//                "https://dash.akamaized.net/dash264/TestCasesIOP33/adapatationSetSwitching/5/manifest.mpd",
-//                "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-//                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-//                "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
-//                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
-//                "https://samplelib.com/lib/preview/mp4/sample-30s.mp4"
-//        };
-
-//        for(int i = 0; i < titles.size(); i++){
-//            videoCardModels.add(new VideoCardModel(vectorImages[0], titles.get(i), descriptions.get(i), associatedUrls.get(i)));
-//        }
 
     }
 
