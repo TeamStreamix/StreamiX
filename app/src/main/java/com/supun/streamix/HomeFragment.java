@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.supun.streamix.ui.videoCard.IRecyclerView;
 import com.supun.streamix.ui.videoCard.VC_RecycleViewAdapter;
@@ -27,11 +28,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements IRecyclerView {
+public class HomeFragment extends Fragment implements IRecyclerView, SwipeRefreshLayout.OnRefreshListener {
 
     private final ArrayList<VideoCardModel> videoCardModels = new ArrayList<>();
     private MainActivity mainActivity;
     private VC_RecycleViewAdapter adapter;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,12 +50,23 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        swipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.red_900,
+                R.color.yellow_100,
+                R.color.black,
+                R.color.purple_700
+        );
+
+        swipeRefreshLayout.post(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            setupVideoCardModels();
+
+            Log.i("zz", String.valueOf(videoCardModels.size()));
+        });
+
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_home);
-
-        setupVideoCardModels();
-
-
-        Log.i("zz", String.valueOf(videoCardModels.size()));
         adapter = new VC_RecycleViewAdapter(getContext(), videoCardModels, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -103,11 +117,14 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
         // This is to prevent duplicating items when orientation change
 
+        swipeRefreshLayout.setRefreshing(true);
 
-         videoCardModels.clear();
+        videoCardModels.clear();
+        adapter.clear();
+
         ArrayList<String> ids = new ArrayList<>();
 
-        String Tag = "vhagar";
+        String Tag = "ASYNC";
         Log.i(Tag, "Starting");
         Call<List<Video>> call = RetrofitClient.getInstance().getAPI().getVideos();
         Log.i(Tag, "call ");
@@ -123,7 +140,9 @@ public class HomeFragment extends Fragment implements IRecyclerView {
                     Log.i(Tag, "xxxx");
                     if (!ids.contains(videoList.get(i).getID())){
                         ids.add(videoList.get(i).getID());
-                        videoCardModels.add(new VideoCardModel(R.drawable.no_thumbnail_available, videoList.get(i).getTitle(),
+                        videoCardModels.add(new VideoCardModel(
+                                R.drawable.no_thumbnail_available,
+                                videoList.get(i).getTitle(),
                                 videoList.get(i).getDescription(),
                                 BuildConfig.FILE_SYSTEM_URL+videoList.get(i).getID()+"/"+videoList.get(i).getID()+"_out.mpd"));
 
@@ -132,6 +151,8 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
                 }
                 Log.i("qqq", String.valueOf(videoCardModels.size()));
+
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -183,4 +204,9 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         animationSet.start();
     }
 
+    @Override
+    public void onRefresh() {
+        setupVideoCardModels();
+        Log.i("SWIPE_REFRESH", "Swipe refresh executed");
+    }
 }

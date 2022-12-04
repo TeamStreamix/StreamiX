@@ -18,11 +18,11 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.15:8080/\"")
+            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.4:8080/\"")
             buildConfigField("String", "SERVER_URL", "\"http://192.168.1.4:4000/\"")
         }
         release {
-            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.15:8080/\"")
+            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.4:8080\"")
             buildConfigField("String", "SERVER_URL", "\"http://192.168.1.4:4000/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -63,5 +63,7 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.squareup.okhttp3:okhttp:3.3.1'
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }

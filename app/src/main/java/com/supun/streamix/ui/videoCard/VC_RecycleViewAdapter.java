@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.supun.streamix.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VC_RecycleViewAdapter extends RecyclerView.Adapter<VC_RecycleViewAdapter.MyViewHolder> {
 
@@ -93,5 +94,15 @@ public class VC_RecycleViewAdapter extends RecyclerView.Adapter<VC_RecycleViewAd
 
 
         }
+    }
+
+    public void clear(){
+        videoCardModels.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<VideoCardModel> newList){
+        videoCardModels.addAll(newList);
+        notifyDataSetChanged();
     }
 }
