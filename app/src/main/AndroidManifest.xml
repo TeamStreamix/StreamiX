@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,10 +18,20 @@
         android:roundIcon="@mipmap/streamix_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StreamiX.DarkTheme"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".PlayerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.StreamiX.DarkTheme">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".videoUploadForm"
             android:exported="false"
             android:theme="@style/Theme.StreamiX.DarkTheme">
             <meta-data

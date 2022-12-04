@@ -5,8 +5,21 @@
     <string name="Record">Record</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="video_title">Video Title</string>
-    <string name="video_description">This text discribe the video. Which discribe a little more abbout the video itself.</string>
+    <string name="video_description">Description</string>
     <string name="app_bar_search">Search</string>
     <string name="dark_mode">Theme</string>
     <string name="devices">Devices</string>
+    <string name="VideoQuality">Video Quality</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="upload">Upload</string>
+    <string name="VideoUploadForm">Upload Form</string>
+
+
+    <string name="track_selection_title">Select tracks</string>
+    <string name="exo_track_selection_title_video">Video</string>
+    <string name="exo_track_selection_title_audio">Audio</string>
+    <string name="exo_track_selection_title_text">Text</string>
+    <string name="StreamType">Stream type</string>
+
 </resources>

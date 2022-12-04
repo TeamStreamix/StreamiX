@@ -17,7 +17,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.4:8080/\"")
+            buildConfigField("String", "SERVER_URL", "\"http://192.168.1.4:4000/\"")
+        }
         release {
+            buildConfigField("String", "FILE_SYSTEM_URL", "\"http://192.168.1.4:8080\"")
+            buildConfigField("String", "SERVER_URL", "\"http://192.168.1.4:4000/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -31,13 +37,18 @@ android {
     }
 }
 
+def mediaVersion = "2.18.1"
+
 dependencies {
 
     // dependency for exoplayer
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.1'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.1'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.1'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.1'
+    implementation "com.google.android.exoplayer:exoplayer-core:$mediaVersion"
+    implementation "com.google.android.exoplayer:exoplayer-dash:$mediaVersion"
+    implementation "com.google.android.exoplayer:exoplayer-hls:$mediaVersion"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$mediaVersion"
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -49,4 +60,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.squareup.okhttp3:okhttp:3.3.1'
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 }

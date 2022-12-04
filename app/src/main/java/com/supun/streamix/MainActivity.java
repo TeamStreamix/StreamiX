@@ -1,8 +1,12 @@
 package com.supun.streamix;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.card.MaterialCardView;
@@ -11,6 +15,7 @@ import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.content.ContextCompat;
@@ -28,6 +33,14 @@ import android.widget.RelativeLayout;
 import com.supun.streamix.ui.main.SectionsPagerAdapter;
 import com.supun.streamix.databinding.ActivityMainBinding;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.time.LocalDateTime;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -36,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionMenuItemView btnToggleDark;
     private Menu menu;
+
+    private int recordCode = 100;
+    private Uri videoUri;
+
 
 
 
@@ -50,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.i("started_main", "Application re rendered"); // Every thing reruns when the orientation changes
+        Log.i("BASE_URL", BuildConfig.SERVER_URL);
 
         super.onCreate(savedInstanceState);
+
+
+
 
 
 
@@ -76,12 +97,16 @@ public class MainActivity extends AppCompatActivity {
             try{
                 Intent intent = new Intent();
                 intent.setAction(MediaStore.ACTION_VIDEO_CAPTURE);
-//                intent.putExtra() : Pass extras to the new Activity
-                startActivity(intent);
+
+                startActivityForResult(intent, recordCode);
+
+
             } catch (Exception e){
                 e.printStackTrace();
             }
         });
+
+
 
 
         // This is the code to change the theme ------------------------------------------
@@ -149,4 +174,33 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == recordCode){
+            if(resultCode == RESULT_OK){
+                assert data != null;
+                videoUri = data.getData();
+
+                Log.i("MY_VIDEO_URI", videoUri.toString());
+
+                Intent intent = new Intent(this, videoUploadForm.class);
+
+                intent.putExtra("VIDEO_URL", videoUri.toString());
+
+                startActivity(intent);
+
+                finish();
+
+                Log.i("RESULT_OK", "onActivityResult: Video captured");
+            } else if(resultCode == RESULT_CANCELED){
+                Log.i("CAMERA_CLOSE", "onActivityResult: Camera Closed");
+            } else{
+                Log.i("CAMERA_FAILED", "onActivityResult: Camera Failed");
+            }
+        }
+    }
+
 }
