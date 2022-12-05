@@ -26,9 +26,11 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SearchEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 
 import com.supun.streamix.ui.main.SectionsPagerAdapter;
 import com.supun.streamix.databinding.ActivityMainBinding;
@@ -54,11 +56,25 @@ public class MainActivity extends AppCompatActivity {
     private Uri videoUri;
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        MenuItem menuItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type here to search...");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                //TODO add filter
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
